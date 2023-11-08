@@ -1,8 +1,8 @@
 package ru.rubysln.multithreading.models;
 
 public class MathData {
-  private int value1;
-  private int value2;
+  private final int value1;
+  private final int value2;
 
   public MathData(int value1, int value2) {
     this.value1 = value1;

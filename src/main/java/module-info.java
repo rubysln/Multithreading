@@ -7,4 +7,6 @@ module ru.rubysln.multithreading {
   exports ru.rubysln.multithreading;
   exports ru.rubysln.multithreading.controllers;
   opens ru.rubysln.multithreading.controllers to javafx.fxml;
+  exports ru.rubysln.multithreading.models;
+  opens ru.rubysln.multithreading.models to javafx.base;
 }
