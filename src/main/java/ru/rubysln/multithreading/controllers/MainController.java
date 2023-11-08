@@ -25,7 +25,6 @@ import ru.rubysln.multithreading.models.MathData;
 
 public class MainController implements Initializable {
 
-  private int z; // z = 2 * x - 1
   private int y; // y = 3 * x - 1
   private int firstSliderValue; // Значение слайдера для редактирования скорости работы первого потока
   private int secondSliderValue; // Значение слайдера для редактирования скорости работы второго потока
@@ -130,8 +129,7 @@ public class MainController implements Initializable {
     while (!calculateThread.isInterrupted()) {
       for (int x = 3; x <= 6; x++) {
         y = 3 * x - 1;
-        z = 2 * x - 1;
-        x += 1;
+        int z = 2 * x - 1;
         table1.getItems().add(new MathData(y, z));
         try {
           Thread.sleep(firstSliderValue);
@@ -183,7 +181,7 @@ public class MainController implements Initializable {
       stage.setScene(scene);
 
       stage.setY(100);
-      stage.setX(1000);
+      stage.setX(1500);
       stage.show();
     });
   }
