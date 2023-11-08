@@ -13,7 +13,7 @@ public class MainApplication extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("hello-view.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
     Scene scene = new Scene(fxmlLoader.load());
 
     stage.setTitle("Multithreading");
@@ -22,6 +22,7 @@ public class MainApplication extends Application {
     stage.getIcons().add(icon);
 
     stage.setScene(scene);
+    stage.setAlwaysOnTop(true);
     stage.show();
   }
 

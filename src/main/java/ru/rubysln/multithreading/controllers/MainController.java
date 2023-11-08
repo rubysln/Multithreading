@@ -90,6 +90,7 @@ public class MainController implements Initializable {
 
   @FXML
   private void stopButtonClicked() {
+    // Обработка нажатия кнопки "Stop"
     calculateThread.interrupt();
     createThread.interrupt();
   }
@@ -101,8 +102,8 @@ public class MainController implements Initializable {
     calculateThread = new Thread(this::firstThreadMethod);
     calculateSemaphore = new Semaphore(0);
     createSemaphore = new Semaphore(1);
-    firstSliderValue = (int) (1000 * (slider1.getValue() / 100));
-    secondSliderValue = (int) (1000 * (slider2.getValue() / 100));
+    firstSliderValue = (int) (5000 * (slider1.getValue() / 100));
+    secondSliderValue = (int) (5000 * (slider2.getValue() / 100));
     additionalStage = new ArrayList<>();
 
     // Добавление слушателей для фиксаций изменения слайдеров
@@ -111,7 +112,7 @@ public class MainController implements Initializable {
       public void changed(ObservableValue<? extends Number> observableValue, Number number,
           Number t1) {
 
-        firstSliderValue = (int) (1000 * (slider1.getValue() / 100));
+        firstSliderValue = (int) (5000 * (slider1.getValue() / 100));
       }
     });
     slider2.valueProperty().addListener(new ChangeListener<Number>() {
@@ -119,7 +120,7 @@ public class MainController implements Initializable {
       public void changed(ObservableValue<? extends Number> observableValue, Number number,
           Number t1) {
 
-        firstSliderValue = (int) (1000 * (slider1.getValue() / 100));
+        secondSliderValue = (int) (5000 * (slider2.getValue() / 100));
       }
     });
   }
@@ -132,9 +133,11 @@ public class MainController implements Initializable {
         z = 2 * x - 1;
         x += 1;
         table1.getItems().add(new MathData(y, z));
-        createNewWindow(x + z);
         try {
-          Thread.sleep((int) firstSliderValue);
+          Thread.sleep(firstSliderValue);
+          createSemaphore.acquire();
+          createNewWindowWithFields(x + z);
+          calculateSemaphore.release();
         } catch (InterruptedException e) {
           System.out.println("Поток остановлен");
           calculateThread.interrupt();
@@ -145,9 +148,47 @@ public class MainController implements Initializable {
 
   private void secondThreadMethod() {
     // Метод второго потока
+    while (!createThread.isInterrupted()){
+      try {
+        Thread.sleep(secondSliderValue);
+        calculateSemaphore.acquire();
+        createNewWindowWithButtons();
+        createSemaphore.release();
+      } catch (InterruptedException e) {
+        createThread.interrupt();
+      }
+    }
   }
 
-  private void createNewWindow(int result) {
+  private void createNewWindowWithButtons(){
+    Platform.runLater(() -> {
+      Stage stage = new Stage();
+
+      additionalStage.add(stage);
+      stageCount++;
+
+      Image icon = new Image(
+          Objects.requireNonNull(MainApplication.class.getResourceAsStream("images/icon.png")));
+      stage.getIcons().add(icon);
+
+      stage.setTitle(y + " кнопок");
+
+      VBox root = new VBox();
+      for (int index = 0; index < y; index++) {
+        Button button = new Button("Кнопка - " + index);
+        root.getChildren().add(button);
+      }
+
+      Scene scene = new Scene(root, 400, 300);
+      stage.setScene(scene);
+
+      stage.setY(100);
+      stage.setX(1000);
+      stage.show();
+    });
+  }
+
+  private void createNewWindowWithFields(int result) {
     // Метод создания окон со строками ввода равным (x + z)
     Platform.runLater(() -> {
       Stage stage = new Stage();
@@ -170,6 +211,8 @@ public class MainController implements Initializable {
       Scene scene = new Scene(root, 400, 300);
       stage.setScene(scene);
 
+      stage.setY(100);
+      stage.setX(100);
       stage.show();
     });
   }

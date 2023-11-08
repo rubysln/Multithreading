@@ -1,8 +1,9 @@
 package ru.rubysln.multithreading.models;
 
 public class MathData {
-  private final int value1;
-  private final int value2;
+  // Дополнительный класс для хранения данных вычислительного потока
+  private final int value1; // y = 3 * x - 1
+  private final int value2; // z = 2 * x - 1
 
   public MathData(int value1, int value2) {
     this.value1 = value1;
