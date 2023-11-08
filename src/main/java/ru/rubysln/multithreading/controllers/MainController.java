@@ -2,6 +2,7 @@ package ru.rubysln.multithreading.controllers;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.Semaphore;
 import javafx.application.Platform;
@@ -16,8 +17,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import ru.rubysln.multithreading.MainApplication;
 import ru.rubysln.multithreading.models.MathData;
 
 public class MainController implements Initializable {
@@ -151,6 +154,10 @@ public class MainController implements Initializable {
 
       additionalStage.add(stage);
       stageCount++;
+
+      Image icon = new Image(
+          Objects.requireNonNull(MainApplication.class.getResourceAsStream("images/icon.png")));
+      stage.getIcons().add(icon);
 
       stage.setTitle(result + " строк ввода");
 
