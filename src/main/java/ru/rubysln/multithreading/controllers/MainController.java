@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.Semaphore;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
@@ -20,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import ru.rubysln.multithreading.MainApplication;
 import ru.rubysln.multithreading.models.MathData;
 
@@ -62,6 +65,15 @@ public class MainController implements Initializable {
   @FXML
   private TableView<MathData> table1;
 
+  @FXML
+  private Label label1;
+
+  @FXML
+  private Label label2;
+
+  @FXML
+  private Label stoppedLabel;
+
   // Здесь создание моделей завершается
 
   @FXML
@@ -92,6 +104,25 @@ public class MainController implements Initializable {
     // Обработка нажатия кнопки "Stop"
     calculateThread.interrupt();
     createThread.interrupt();
+
+    stoppedLabel.setVisible(true);
+    PauseTransition visiblePause = new PauseTransition(Duration.seconds(2));
+    visiblePause.setOnFinished(e -> stoppedLabel.setVisible(false)); // Скрываем надпись после паузы
+    visiblePause.play();
+  }
+
+  @FXML
+  private void firstSliderChanged(){
+    // Обработка изменения позиции первого слайдера
+    firstSliderValue = (int) (5000 * (slider1.getValue() / 100));
+    label1.setText(String.valueOf(firstSliderValue));
+  }
+
+  @FXML
+  private void secondSliderChanged(){
+    // Обработка изменения позиции второго слайдера
+    secondSliderValue = (int) (5000 * (slider2.getValue() / 100));
+    label2.setText(String.valueOf(secondSliderValue));
   }
 
   @Override
@@ -104,24 +135,9 @@ public class MainController implements Initializable {
     firstSliderValue = (int) (5000 * (slider1.getValue() / 100));
     secondSliderValue = (int) (5000 * (slider2.getValue() / 100));
     additionalStage = new ArrayList<>();
-
-    // Добавление слушателей для фиксаций изменения слайдеров
-    slider1.valueProperty().addListener(new ChangeListener<Number>() {
-      @Override
-      public void changed(ObservableValue<? extends Number> observableValue, Number number,
-          Number t1) {
-
-        firstSliderValue = (int) (5000 * (slider1.getValue() / 100));
-      }
-    });
-    slider2.valueProperty().addListener(new ChangeListener<Number>() {
-      @Override
-      public void changed(ObservableValue<? extends Number> observableValue, Number number,
-          Number t1) {
-
-        secondSliderValue = (int) (5000 * (slider2.getValue() / 100));
-      }
-    });
+    stoppedLabel.setVisible(false);
+    label1.setText(String.valueOf(firstSliderValue));
+    label2.setText(String.valueOf(secondSliderValue));
   }
 
   private void firstThreadMethod() {
