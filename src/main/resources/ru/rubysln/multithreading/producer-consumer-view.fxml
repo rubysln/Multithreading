@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="483.0" style="-fx-background-color: #91a8b0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.rubysln.multithreading.controllers.ProducerConsumerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="637.0" style="-fx-background-color: #91a8b0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.rubysln.multithreading.controllers.ProducerConsumerController">
   <children>
-    <AnchorPane layoutY="37.0" prefHeight="387.0" prefWidth="483.0" style="-fx-background-color: #c5e0e9;">
+    <AnchorPane layoutY="37.0" prefHeight="387.0" prefWidth="637.0" style="-fx-background-color: #c5e0e9;">
       <children>
-        <Button fx:id="resetButton" layoutX="379.0" layoutY="342.0" mnemonicParsing="false" onAction="#resetButtonClicked" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #d9bfd8; -fx-border-color: #91a8b0;" stylesheets="@styles/buttonStyles.css" text="Reset">
+        <Button fx:id="resetButton" layoutX="533.0" layoutY="345.0" mnemonicParsing="false" onAction="#resetButtonClicked" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #d9bfd8; -fx-border-color: #91a8b0;" stylesheets="@styles/buttonStyles.css" text="Reset">
           <font>
             <Font name="Times New Roman Bold" size="16.0" />
           </font>
         </Button>
-        <Slider fx:id="slider2" layoutX="284.0" layoutY="14.0" min="1.0" minorTickCount="10" onMouseReleased="#secondSliderChanged" orientation="VERTICAL" prefHeight="335.0" prefWidth="15.0" showTickMarks="true" value="51.0" />
-        <Slider fx:id="slider1" layoutX="348.0" layoutY="14.0" min="1.0" minorTickCount="10" onMouseReleased="#firstSliderChanged" orientation="VERTICAL" prefHeight="335.0" prefWidth="15.0" showTickMarks="true" value="51.0" />
-        <Button fx:id="stopButton" layoutX="379.0" layoutY="302.0" mnemonicParsing="false" onAction="#stopButtonClicked" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #d9bfd8; -fx-border-color: #91a8b0;" stylesheets="@styles/buttonStyles.css" text="Stop">
+        <Slider fx:id="slider2" layoutX="438.0" layoutY="17.0" min="1.0" minorTickCount="10" onMouseReleased="#secondSliderChanged" orientation="VERTICAL" prefHeight="335.0" prefWidth="15.0" showTickMarks="true" value="51.0" />
+        <Slider fx:id="slider1" layoutX="502.0" layoutY="17.0" min="1.0" minorTickCount="10" onMouseReleased="#firstSliderChanged" orientation="VERTICAL" prefHeight="335.0" prefWidth="15.0" showTickMarks="true" value="51.0" />
+        <Button fx:id="stopButton" layoutX="533.0" layoutY="305.0" mnemonicParsing="false" onAction="#stopButtonClicked" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #d9bfd8; -fx-border-color: #91a8b0;" stylesheets="@styles/buttonStyles.css" text="Stop">
           <font>
             <Font name="Times New Roman Bold" size="16.0" />
           </font>
         </Button>
-        <Button fx:id="startButton" layoutX="379.0" layoutY="262.0" mnemonicParsing="false" onAction="#startButtonClicked" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #d9bfd8; -fx-border-color: #91a8b0;" stylesheets="@styles/buttonStyles.css" text="Start">
+        <Button fx:id="startButton" layoutX="533.0" layoutY="265.0" mnemonicParsing="false" onAction="#startButtonClicked" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #d9bfd8; -fx-border-color: #91a8b0;" stylesheets="@styles/buttonStyles.css" text="Start">
           <font>
             <Font name="Times New Roman Bold" size="16.0" />
           </font>
@@ -39,18 +39,27 @@
             </TableColumn>
           </columns>
         </TableView>
-        <TableView fx:id="table2" layoutX="134.0" layoutY="14.0" prefHeight="364.0" prefWidth="120.0">
+        <TableView fx:id="table3" layoutX="134.0" layoutY="14.0" prefHeight="364.0" prefWidth="120.0">
           <columns>
-            <TableColumn fx:id="column2" prefWidth="120.0" text="Consumer">
+            <TableColumn fx:id="column2" prefWidth="120.0" text="Buffer">
               <cellValueFactory>
                 <PropertyValueFactory property="actual" />
               </cellValueFactory>
             </TableColumn>
           </columns>
         </TableView>
-            <Label fx:id="label2" layoutX="257.0" layoutY="349.0" prefHeight="17.0" prefWidth="54.0" text="Скорость" />
-            <Label fx:id="label1" layoutX="322.0" layoutY="349.0" text="Скорость" />
-            <Label fx:id="stoppedLabel" layoutX="398.0" layoutY="159.0" prefHeight="45.0" prefWidth="52.0" text="Stopped!" />
+            <Label fx:id="label2" layoutX="411.0" layoutY="352.0" prefHeight="17.0" prefWidth="54.0" text="Скорость" />
+            <Label fx:id="label1" layoutX="476.0" layoutY="352.0" text="Скорость" />
+            <Label fx:id="stoppedLabel" layoutX="552.0" layoutY="162.0" prefHeight="45.0" prefWidth="52.0" text="Stopped!" />
+            <TableView fx:id="table2" layoutX="254.0" layoutY="14.0" prefHeight="364.0" prefWidth="120.0">
+               <columns>
+                  <TableColumn fx:id="column2" prefWidth="120.0" text="Consumer">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="actual" />
+                     </cellValueFactory>
+                  </TableColumn>
+               </columns>
+            </TableView>
       </children>
     </AnchorPane>
     <Label layoutX="14.0" layoutY="14.0" text="Multithreading" textFill="#c5e0e9">

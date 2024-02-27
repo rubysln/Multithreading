@@ -149,9 +149,7 @@ public class MainController implements Initializable {
         table1.getItems().add(new MathData(y, z));
         try {
           Thread.sleep(firstSliderValue);
-          createSemaphore.acquire();
           createNewWindowWithFields(x + z);
-          calculateSemaphore.release();
         } catch (InterruptedException e) {
           System.out.println("Поток остановлен");
           calculateThread.interrupt();
@@ -165,9 +163,7 @@ public class MainController implements Initializable {
     while (!createThread.isInterrupted()){
       try {
         Thread.sleep(secondSliderValue);
-        calculateSemaphore.acquire();
         createNewWindowWithButtons();
-        createSemaphore.release();
       } catch (InterruptedException e) {
         createThread.interrupt();
       }
